@@ -1,0 +1,121 @@
+//vars
+$animationDuration: 5.2s;
+$cubeSize: 180px;
+$outerCubeColor: rgba(141, 214, 249, 0.5);
+$innerCubeColor: #1d78c1;
+$innerCubeSize: $cubeSize;
+
+@keyframes hoverY {
+  0% {
+    transform: translatey(0px);
+  }
+  100% {
+    transform: translatey(-30px);
+  }
+}
+
+@keyframes scaleBigShadow {
+  0% {
+    transform: scale3d(0.65, 0.65, 0.65);
+  }
+  100% {
+    transform: scale3d(0.6, 0.6, 0.6);
+  }
+}
+
+@keyframes scaleSmallShadow {
+  0% {
+    transform: scale3d(0.45, 0.45, 0.45);
+  }
+  100% {
+    transform: scale3d(0.37, 0.37, 0.37);
+  }
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scene {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  margin-top: 140px;
+  margin-bottom: 140px;
+  transform-style: preserve-3d;
+  transform: translateX(40px) rotatex(-33.5deg) rotatey(45deg);
+
+  $hoverDuration: 2s;
+  .webpack-cube {
+    transform-style: preserve-3d;
+    animation: hoverY $hoverDuration infinite alternate;
+    animation-timing-function: ease-in-out;
+  }
+
+  .outer-cube {
+    position: absolute;
+    width: $cubeSize;
+    height: $cubeSize;
+    left: -80px;
+    top: 0;
+    transform-style: preserve-3d;
+    display: inline-block;
+
+    .face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      background: $outerCubeColor;
+      line-height: 100px;
+      border: 1px solid white;
+
+      &-front {
+        transform: translatez(calc($cubeSize / 2));
+      }
+      &-back {
+        transform: rotateY(180deg) translatez(calc($cubeSize / 2));
+      }
+      &-top {
+        transform: rotatex(90deg) translatez(calc($cubeSize / 2));
+      }
+      &-bottom {
+        transform: rotatex(-90deg) translatez(calc($cubeSize / 2));
+      }
+      &-left {
+        transform: rotateY(-90deg) translatez(calc($cubeSize / 2));
+        .face-text {
+          margin: 0;
+          padding: 0;
+          height: 15%;
+        }
+      }
+      &-right {
+        transform: rotateY(90deg) translatez(calc($cubeSize / 2));
+      }
+    }
+  }
+
+  .shadows-outer-container {
+    display: inline-block;
+    transform-style: preserve-3d;
+    width: $innerCubeSize;
+    height: $innerCubeSize;
+    transform: translatex(-50%) rotatex(-90deg) translatez(110px);
+
+    .shadow-outer {
+      display: inline-block;
+      position: absolute;
+      width: $innerCubeSize;
+      height: $innerCubeSize;
+      background-color: rgba(255, 255, 255, 0.5);
+      animation: scaleBigShadow 2s infinite alternate;
+      animation-timing-function: ease-in-out;
+      box-shadow: 0px 0px 45px 35px rgba(255, 255, 255, 0.5);
+      transform-origin: center center;
+      transform: scale3d(0.8, 0.8, 0.8);
+    }
+  }
+}
