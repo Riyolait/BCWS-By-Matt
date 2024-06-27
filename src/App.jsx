@@ -10,7 +10,7 @@ function App() {
   return (
     <>
       <Header />
-      <div>
+      <div className="app-wrapper">
         <BrowserRouter>
           <Routes>
             <Route index element={<HomePage />} />
