@@ -1,8 +1,7 @@
 //vars
 $animationDuration: 5.2s;
 $cubeSize: 180px;
-$outerCubeColor: rgba(141, 214, 249, 0.5);
-$innerCubeColor: #1d78c1;
+$outerCubeColor: rgb(45, 50, 53);
 $innerCubeSize: $cubeSize;
 
 @keyframes hoverY {
@@ -70,10 +69,11 @@ $innerCubeSize: $cubeSize;
       text-align: center;
       background: $outerCubeColor;
       line-height: 100px;
-      border: 1px solid white;
+      border: 1px solid rgba(255, 255, 255, 0.5);
 
       &-front {
         transform: translatez(calc($cubeSize / 2));
+        background: linear-gradient(rgb(45, 50, 53) 75%, #e87cb9 120%);
       }
       &-back {
         transform: rotateY(180deg) translatez(calc($cubeSize / 2));
@@ -90,7 +90,9 @@ $innerCubeSize: $cubeSize;
           margin: 0;
           padding: 0;
           height: 15%;
+          color: white;
         }
+        background: linear-gradient(rgb(45, 50, 53) 75%, #e87cb9 120%);
       }
       &-right {
         transform: rotateY(90deg) translatez(calc($cubeSize / 2));
@@ -110,10 +112,10 @@ $innerCubeSize: $cubeSize;
       position: absolute;
       width: $innerCubeSize;
       height: $innerCubeSize;
-      background-color: rgba(255, 255, 255, 0.5);
+      background-color: rgba(232, 124, 185, 0.5);
       animation: scaleBigShadow 2s infinite alternate;
       animation-timing-function: ease-in-out;
-      box-shadow: 0px 0px 45px 35px rgba(255, 255, 255, 0.5);
+      box-shadow: 0px 0px 45px 35px rgba(232, 124, 185, 0.5);
       transform-origin: center center;
       transform: scale3d(0.8, 0.8, 0.8);
     }

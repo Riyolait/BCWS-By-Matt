@@ -1,3 +1,4 @@
+// import "../styles/GlobalStyles.css";
 function HomePage() {
   return (
     <div className="container">

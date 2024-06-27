@@ -1,6 +1,7 @@
 import React from "react";
 // import styled from "styled-components";
 import Cube from "../Cube/Cube.jsx";
+// import "../../styles/GlobalStyles.css";
 
 // const Container = styled.div`
 //   padding: 2rem;
