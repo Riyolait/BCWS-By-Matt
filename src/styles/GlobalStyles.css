@@ -8,7 +8,8 @@
   --link-color: #36d7b7;
 }
 body {
-  background: linear-gradient(0deg, #360033, #0b8793);
+  /* background: linear-gradient(0deg, #360033, #0b8793); */
+  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
   color: var(--text-color);
   margin: 0;
   padding: 0;

@@ -1,8 +1,21 @@
 .cubesContainer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
-  /* margin-top: 20px; */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-areas: "cube1 cube2 cube3 cube4 cube5" "link link link link link";
+  gap: 1rem;
+  justify-items: center;
+  align-items: center;
+}
+.chainLink {
+  width: 70%;
+  height: 2rem; /* Adjust as needed */
+  margin: 1rem 0;
+}
+.specialchainLink {
+  grid-area: link;
+  height: 3rem;
+  /* rotate 30deg*/
+  transform: rotate(-90deg);
+  justify-self: end;
+  margin-right: 140px;
 }

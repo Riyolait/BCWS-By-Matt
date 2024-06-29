@@ -1,3 +1,15 @@
+// Ajoutez ces styles pour afficher le tooltip au survol
+.tooltip-text {
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.container:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
 //vars
 $animationDuration: 5.2s;
 $cubeSize: 180px;
@@ -35,13 +47,14 @@ $innerCubeSize: $cubeSize;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative; /* Assurez-vous que le conteneur a une position relative */
 }
 
 .scene {
   position: relative;
   width: 140px;
   height: 140px;
-  margin-top: 140px;
+  margin-top: 90px;
   margin-bottom: 140px;
   transform-style: preserve-3d;
   transform: translateX(40px) rotatex(-33.5deg) rotatey(45deg);
@@ -70,10 +83,12 @@ $innerCubeSize: $cubeSize;
       background: $outerCubeColor;
       line-height: 100px;
       border: 1px solid rgba(255, 255, 255, 0.5);
+      background: linear-gradient(145deg, #36d7b7 0%, #2a2a2a 100%);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 
       &-front {
         transform: translatez(calc($cubeSize / 2));
-        background: linear-gradient(rgb(45, 50, 53) 75%, #e87cb9 120%);
+        background: linear-gradient(145deg, #36d7b7 0%, #2a2a2a 100%);
       }
       &-back {
         transform: rotateY(180deg) translatez(calc($cubeSize / 2));
@@ -92,7 +107,6 @@ $innerCubeSize: $cubeSize;
           height: 15%;
           color: white;
         }
-        background: linear-gradient(rgb(45, 50, 53) 75%, #e87cb9 120%);
       }
       &-right {
         transform: rotateY(90deg) translatez(calc($cubeSize / 2));

@@ -45,6 +45,15 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
+const CubesContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-areas: "cube1 cube2 cube3 cube4 cube5" "link link link link link";
+  gap: 1rem;
+  justify-items: center;
+  align-items: center;
+`;
+
 const SimulatorPage = () => {
   const [aliceBalance, setAliceBalance] = useState(3);
   const [bobBalance, setBobBalance] = useState(0);
@@ -66,8 +75,8 @@ const SimulatorPage = () => {
     const newIndex = lastBlock.index + 1;
     const newBlock = {
       index: newIndex,
-      data1: `${sender} envoie ${amount} BTC`,
-      data2: `à ${receiver}`,
+      data1: `${sender} envoie`,
+      data2: `${amount} BTC à ${receiver}`,
       previousHash: lastBlock.hash,
       hash: `hash${newIndex}`,
     };
@@ -104,7 +113,14 @@ const SimulatorPage = () => {
     // Reset form fields
     setAmount("");
   };
-
+  const chunkBlocks = (blocks, chunkSize) => {
+    let result = [];
+    for (let i = 0; i < blocks.length; i += chunkSize) {
+      result.push(blocks.slice(i, i + chunkSize));
+    }
+    return result;
+  };
+  const blocksChunks = chunkBlocks(blocks, 3);
   return (
     <Container>
       <Title>Simulateur de Blockchain Bitcoin</Title>
@@ -139,9 +155,14 @@ const SimulatorPage = () => {
           <Button type="submit">Envoyer</Button>
         </Form>
       </FormContainer>
-      <div className="cubesContainer">
-        <BlockchainSimulator blocks={blocks} />
-      </div>
+      {/* TODO: not working as I intend,  */}
+      <>
+        {blocksChunks.map((chunk, index) => (
+          <CubesContainer key={index}>
+            <BlockchainSimulator blocks={chunk} />
+          </CubesContainer>
+        ))}
+      </>
     </Container>
   );
 };
