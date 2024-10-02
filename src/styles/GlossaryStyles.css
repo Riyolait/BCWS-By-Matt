@@ -1,0 +1,54 @@
+.container {
+  padding: 2rem;
+  background-color: #f5f5f5;
+  color: #333;
+  min-height: 100vh;
+}
+
+.title {
+  text-align: center;
+  font-size: 3rem;
+  color: #2c3e50;
+  margin-bottom: 2rem;
+  animation: fadeInDown 1.5s ease;
+}
+
+.glossaryList {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.glossaryItem {
+  background-color: #fff;
+  padding: 1.5rem;
+  margin: 1rem;
+  width: 250px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.glossaryItem:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.glossaryImage {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 80px;
+  height: 80px;
+  opacity: 0.3;
+  z-index: -1;
+  transition: transform 0.3s ease;
+}
+
+.glossaryItem:hover img {
+  transform: scale(1.2);
+}

@@ -19,27 +19,30 @@ const BlockchainSimulator = (props) => {
   return (
     <>
       {rows.map((row, rowIndex) => {
-        // Reverse row if it's an even-indexed row (0-based index)
         const processedRow = rowIndex % 2 === 1 ? row.reverse() : row;
 
-        return processedRow.map((block, index) => (
-          <React.Fragment key={block.index}>
-            <Cube
-              index={block.index}
-              data1={block.data1}
-              data2={block.data2}
-              previousHash={block.previousHash}
-              hash={block.hash}
-            />
-            {/* Add ChainLink only between the first and second block of each row */}
-            {(index % blocksPerRow === 0 || index % blocksPerRow === 1) &&
-              index < processedRow.length - 1 && <ChainLink />}
-            {/* Add a special chain between last block of a row and first block of the next row */}
-            {index % 3 === 2 && index < props.blocks.length - 1 && (
-              <SpecialChainLink />
-            )}
-          </React.Fragment>
-        ));
+        return (
+          <div
+            style={{ display: "flex", alignItems: "center", gap: "1rem" }}
+            key={rowIndex}
+          >
+            {processedRow.map((block, index) => (
+              <React.Fragment key={block.index}>
+                <Cube
+                  index={block.index}
+                  data1={block.data1}
+                  data2={block.data2}
+                  previousHash={block.previousHash}
+                  hash={block.hash}
+                />
+                {/* Add ChainLink between blocks in a row */}
+                {index < processedRow.length - 1 && <ChainLink />}
+              </React.Fragment>
+            ))}
+            {/* Add a SpecialChainLink between the last block of the current row and the first of the next */}
+            {rowIndex < rows.length - 1 && <SpecialChainLink />}
+          </div>
+        );
       })}
     </>
   );

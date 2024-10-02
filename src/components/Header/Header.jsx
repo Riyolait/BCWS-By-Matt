@@ -27,10 +27,7 @@ function Header() {
               <a href="/simulator">Simulator</a>
             </li>
             <li>
-              <a href="#">Games</a>
-            </li>
-            <li>
-              <a href="#">Glossary</a>
+              <a href="/glossary">Glossary</a>
             </li>
           </ul>
         </nav>

@@ -2,23 +2,30 @@ import { useState } from "react";
 import styled from "styled-components";
 import Wallet from "../components/Wallet/Wallet.jsx";
 import BlockchainSimulator from "../components/BlockchainSimulator/BlockchainSimulator.jsx";
-// import Cube from "../components/Cube/Cube.jsx";
 import "../styles/GlobalStyles.css";
 import "../styles/SimulatorPage.css";
 
 const Container = styled.div`
   padding: 2rem;
+  display: grid;
+  grid-template-areas:
+    "title title title"
+    "wallet form form"
+    "wallet cubes cubes";
 `;
 
 const Title = styled.h1`
   text-align: center;
   margin-bottom: 2rem;
+  grid-area: title;
 `;
 
 const WalletsContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: flex-start;
   margin-bottom: 2rem;
+  grid-area: wallet;
 `;
 
 const FormContainer = styled.div`
@@ -26,6 +33,7 @@ const FormContainer = styled.div`
   flex-direction: column;
   align-items: center;
   margin-bottom: 2rem;
+  grid-area: form;
 `;
 
 const Form = styled.form`
@@ -47,11 +55,9 @@ const Button = styled.button`
 
 const CubesContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  grid-template-areas: "cube1 cube2 cube3 cube4 cube5" "link link link link link";
-  gap: 1rem;
   justify-items: center;
   align-items: center;
+  grid-area: cubes;
 `;
 
 const SimulatorPage = () => {
@@ -75,8 +81,8 @@ const SimulatorPage = () => {
     const newIndex = lastBlock.index + 1;
     const newBlock = {
       index: newIndex,
-      data1: `${sender} envoie`,
-      data2: `${amount} BTC à ${receiver}`,
+      data1: `${sender} send`,
+      data2: `${amount} BTC to ${receiver}`,
       previousHash: lastBlock.hash,
       hash: `hash${newIndex}`,
     };
@@ -96,7 +102,7 @@ const SimulatorPage = () => {
         setBobBalance(bobBalance + transferAmount);
         addTransaction(sender, receiver, transferAmount);
       } else {
-        alert("Solde insuffisant pour cette transaction");
+        alert("Insufficient balance for this transaction");
       }
     } else if (transactionType === "BobToAlice") {
       sender = "Bob";
@@ -106,13 +112,14 @@ const SimulatorPage = () => {
         setAliceBalance(aliceBalance + transferAmount);
         addTransaction(sender, receiver, transferAmount);
       } else {
-        alert("Solde insuffisant pour cette transaction");
+        alert("Insufficient balance for this transaction");
       }
     }
 
     // Reset form fields
     setAmount("");
   };
+
   const chunkBlocks = (blocks, chunkSize) => {
     let result = [];
     for (let i = 0; i < blocks.length; i += chunkSize) {
@@ -120,19 +127,21 @@ const SimulatorPage = () => {
     }
     return result;
   };
+
   const blocksChunks = chunkBlocks(blocks, 3);
+
   return (
     <Container>
-      <Title>Simulateur de Blockchain Bitcoin</Title>
+      <Title>Bitcoin Blockchain Simulator</Title>
       <WalletsContainer>
         <Wallet owner="Alice" balance={aliceBalance} />
         <Wallet owner="Bob" balance={bobBalance} />
       </WalletsContainer>
       <FormContainer>
-        <h3>Transférer des BTC</h3>
+        <h3>Transfer BTC</h3>
         <Form onSubmit={handleTransfer}>
           <label>
-            Montant :
+            Amount :
             <Input
               type="number"
               value={amount}
@@ -143,26 +152,23 @@ const SimulatorPage = () => {
             />
           </label>
           <label>
-            Transfert :
+            Transfer :
             <select
               value={transactionType}
               onChange={(e) => setTransactionType(e.target.value)}
             >
-              <option value="AliceToBob">De Alice à Bob</option>
-              <option value="BobToAlice">De Bob à Alice</option>
+              <option value="AliceToBob">From Alice to Bob</option>
+              <option value="BobToAlice">From Bob to Alice</option>
             </select>
           </label>
-          <Button type="submit">Envoyer</Button>
+          <Button type="submit">Send</Button>
         </Form>
       </FormContainer>
-      {/* TODO: not working as I intend,  */}
-      <>
+      <CubesContainer>
         {blocksChunks.map((chunk, index) => (
-          <CubesContainer key={index}>
-            <BlockchainSimulator blocks={chunk} />
-          </CubesContainer>
+          <BlockchainSimulator key={index} blocks={chunk} />
         ))}
-      </>
+      </CubesContainer>
     </Container>
   );
 };

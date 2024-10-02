@@ -12,7 +12,7 @@
 
 //vars
 $animationDuration: 5.2s;
-$cubeSize: 180px;
+$cubeSize: 90px;
 $outerCubeColor: rgb(45, 50, 53);
 $innerCubeSize: $cubeSize;
 
@@ -53,7 +53,7 @@ $innerCubeSize: $cubeSize;
 .scene {
   position: relative;
   width: 140px;
-  height: 140px;
+  height: 70px;
   margin-top: 90px;
   margin-bottom: 140px;
   transform-style: preserve-3d;
@@ -70,7 +70,7 @@ $innerCubeSize: $cubeSize;
     position: absolute;
     width: $cubeSize;
     height: $cubeSize;
-    left: -80px;
+    left: -40px;
     top: 0;
     transform-style: preserve-3d;
     display: inline-block;
@@ -81,7 +81,7 @@ $innerCubeSize: $cubeSize;
       height: 100%;
       text-align: center;
       background: $outerCubeColor;
-      line-height: 100px;
+      line-height: 20px;
       border: 1px solid rgba(255, 255, 255, 0.5);
       background: linear-gradient(145deg, #36d7b7 0%, #2a2a2a 100%);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
@@ -102,10 +102,11 @@ $innerCubeSize: $cubeSize;
       &-left {
         transform: rotateY(-90deg) translatez(calc($cubeSize / 2));
         .face-text {
-          margin: 0;
-          padding: 0;
-          height: 15%;
+          margin: 0px;
+          padding: 0px;
+          height: 20%;
           color: white;
+          font-size: 9px;
         }
       }
       &-right {
