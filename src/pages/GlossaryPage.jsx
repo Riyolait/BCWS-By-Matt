@@ -1,6 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-
+import { ShaderGradientCanvas, ShaderGradient } from "shadergradient";
+import * as reactSpring from "@react-spring/three";
+import * as drei from "@react-three/drei";
+import * as fiber from "@react-three/fiber";
 const GlossaryPageContainer = styled.div`
   padding: 2rem;
   color: #333;
@@ -14,7 +17,7 @@ const Title = styled.h1`
   text-align: center;
   font-size: 3rem;
   margin-bottom: 3rem;
-  background: linear-gradient(to right, #00ff00, #00bfff);
+  background: linear-gradient(to bottom, #fff 50%, #ccc 60%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: fadeInDown 1.5s ease;
@@ -66,6 +69,14 @@ const GlossaryDefinition = styled.p`
   font-size: 0.9rem;
   color: #7f8c8d;
   line-height: 1.2;
+`;
+const Background = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
 `;
 
 const GlossaryPage = () => {
@@ -122,6 +133,20 @@ const GlossaryPage = () => {
 
   return (
     <GlossaryPageContainer>
+      <Background>
+        <ShaderGradientCanvas
+          importedfiber={{ ...fiber, ...drei, ...reactSpring }}
+          style={{
+            position: "absolute",
+            top: 0,
+          }}
+        >
+          <ShaderGradient
+            control="query"
+            urlString="https://www.shadergradient.co/customize?animate=on&axesHelper=on&bgColor1=%233c002c&bgColor2=%23314551&brightness=2&cAzimuthAngle=180&cDistance=3.9&cPolarAngle=115&cameraZoom=1&color1=%235606FF&color2=%23FE8989&color3=%23000000&destination=onCanvas&embedMode=off&envPreset=city&format=gif&fov=45&frameRate=10&grain=on&lightType=3d&pixelDensity=1.5&positionX=-0.5&positionY=0.1&positionZ=0&range=enabled&rangeEnd=40&rangeStart=0&reflection=0.1&rotationX=0&rotationY=0&rotationZ=235&shader=defaults&type=waterPlane&uAmplitude=0&uDensity=1.8&uFrequency=5.5&uSpeed=0.1&uStrength=1.4&uTime=0.2&wireframe=false"
+          />
+        </ShaderGradientCanvas>
+      </Background>
       <Title>Cryptocurrency & Blockchain Glossary</Title>
       <GlossaryGrid>
         {terms.map((term, index) => (

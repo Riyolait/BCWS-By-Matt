@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import React from "react";
 import { TwitterTimelineEmbed } from "react-twitter-embed";
+import { ShaderGradientCanvas, ShaderGradient } from "shadergradient";
+import * as reactSpring from "@react-spring/three";
+import * as drei from "@react-three/drei";
+import * as fiber from "@react-three/fiber";
 
 // Styles pour rendre la page plus attrayante
 const Container = styled.div`
@@ -14,6 +18,9 @@ const Title = styled.h1`
   font-size: 3rem;
   margin-bottom: 1rem;
   animation: fadeIn 2s ease-in-out;
+  background: linear-gradient(to bottom, #fff 50%, #ccc 60%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 
   @keyframes fadeIn {
     0% {
@@ -114,6 +121,9 @@ const NewsTitle = styled.h2`
   animation: fadeIn 2s ease-in-out;
   // collé à la gauche
   text-align: left;
+  background: linear-gradient(to bottom, #fff 50%, #ccc 60%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 `;
 
 const TwitterEmbedContainer = styled.div`
@@ -132,9 +142,33 @@ const TwitterEmbed = styled.div`
   border-radius: 10px;
 `;
 
+const Background = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+`;
+
 function HomePage() {
   return (
     <Container>
+      <Background>
+        <ShaderGradientCanvas
+          importedfiber={{ ...fiber, ...drei, ...reactSpring }}
+          style={{
+            position: "absolute",
+            top: 0,
+          }}
+        >
+          <ShaderGradient
+            control="query"
+            urlString="https://www.shadergradient.co/customize?animate=on&axesHelper=on&bgColor1=%233c002c&bgColor2=%23314551&brightness=2&cAzimuthAngle=180&cDistance=3.9&cPolarAngle=115&cameraZoom=1&color1=%235606FF&color2=%23FE8989&color3=%23000000&destination=onCanvas&embedMode=off&envPreset=city&format=gif&fov=45&frameRate=10&grain=on&lightType=3d&pixelDensity=1.5&positionX=-0.5&positionY=0.1&positionZ=0&range=enabled&rangeEnd=40&rangeStart=0&reflection=0.1&rotationX=0&rotationY=0&rotationZ=235&shader=defaults&type=waterPlane&uAmplitude=0&uDensity=1.8&uFrequency=5.5&uSpeed=0.1&uStrength=1.4&uTime=0.2&wireframe=false"
+          />
+        </ShaderGradientCanvas>
+      </Background>
+
       <Title>Welcome to Blockchain Simulator</Title>
       <Description>
         Explore the world of blockchain by simulating transactions and watching
