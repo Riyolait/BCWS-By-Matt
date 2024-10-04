@@ -37,7 +37,7 @@ npm install
 
 ```
 cd blockchain-simulator-backend
-npm run start-server
+npm start
 ```
 
 The server will handle the session storage (saving the blockchain state).
