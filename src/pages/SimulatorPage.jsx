@@ -114,6 +114,15 @@ const SimulatorPage = () => {
 
   const [amount, setAmount] = useState("");
   const [transactionType, setTransactionType] = useState("AliceToBob");
+  const [selectedBlockIndex, setSelectedBlockIndex] = useState(null);
+
+  // Function to handle click on the CubesContainer
+  const handleBlockClick = (blockIndex) => {
+    // console.log(`Block ${blockIndex} clicked!`);
+    // alert(`Block ${blockIndex} was clicked!`);
+    setSelectedBlockIndex(blockIndex);
+    // alert the state of the selected block
+  };
 
   // Charger la session une seule fois
   useEffect(() => {
@@ -257,7 +266,12 @@ const SimulatorPage = () => {
       </FormContainer>
       <CubesContainer>
         {blocksChunks.map((chunk, index) => (
-          <BlockchainSimulator key={index} blocks={chunk} />
+          <BlockchainSimulator
+            key={index}
+            blocks={chunk}
+            onBlockClick={handleBlockClick}
+            selectedBlockIndex={selectedBlockIndex}
+          />
         ))}
       </CubesContainer>
     </Container>

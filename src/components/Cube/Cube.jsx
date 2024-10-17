@@ -29,28 +29,33 @@ const HtmlTooltip = styled(({ className, ...props }) => (
   },
 }));
 function Cube(props) {
+  const isSelected = props.isSelected;
+
   return (
-    <HtmlTooltip
-      title={
-        <React.Fragment>
-          <div>
-            {"Index : "}
-            {props.index} <br />
-            {"Data : "}
-            {props.data1} {props.data2}
-            <br />
-            {"Previous Hash : "}
-            {props.previousHash}
-            <br />
-            {"Hash : "}
-            {props.hash}
-          </div>
-        </React.Fragment>
-      }
+    <div
+      className={`container ${isSelected ? "selected" : ""}`}
+      onClick={() => props.onBlockClick(props.index)}
     >
-      <div className="container">
+      <HtmlTooltip
+        title={
+          <React.Fragment>
+            <div>
+              {"Index : "}
+              {props.index} <br />
+              {"Data : "}
+              {props.data1} {props.data2}
+              <br />
+              {"Previous Hash : "}
+              {props.previousHash}
+              <br />
+              {"Hash : "}
+              {props.hash}
+            </div>
+          </React.Fragment>
+        }
+      >
         <div className="scene">
-          <div className="webpack-cube">
+          <div className={`webpack-cube ${isSelected ? "selected" : ""}`}>
             <div className="outer-cube">
               <div className="face face-top"></div>
               <div className="face face-bottom"></div>
@@ -67,11 +72,13 @@ function Cube(props) {
             </div>
           </div>
           <div className="shadows-outer-container">
-            <div className="shadow-outer"></div>
+            <div
+              className={`shadow-outer ${isSelected ? "selected" : ""}`}
+            ></div>
           </div>
         </div>
-      </div>
-    </HtmlTooltip>
+      </HtmlTooltip>
+    </div>
   );
 }
 

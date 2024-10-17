@@ -34,6 +34,8 @@ const BlockchainSimulator = (props) => {
                   data2={block.data2}
                   previousHash={block.previousHash}
                   hash={block.hash}
+                  onBlockClick={props.onBlockClick}
+                  isSelected={block.index === props.selectedBlockIndex}
                 />
                 {/* Add ChainLink between blocks in a row */}
                 {index < processedRow.length - 1 && <ChainLink />}

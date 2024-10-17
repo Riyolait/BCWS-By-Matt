@@ -1,69 +1,208 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { motion, AnimatePresence } from "framer-motion";
+import { FaBitcoin, FaChevronDown, FaChevronUp } from "react-icons/fa";
 
-const WalletContainer = styled.div`
-  background: linear-gradient(
-    135deg,
-    #003366,
-    #006633
-  ); /* Dégradé plus sombre */
-  border-radius: 15px;
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.4); /* Ombre plus discrète mais correspondant à la couleur du fond */
+const WalletContainer = styled(motion.div)`
+  background: linear-gradient(135deg, #1a237e, #283593);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   padding: 2rem;
   margin: 1rem;
-  width: 300px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 350px;
+  overflow: hidden;
+`;
+
+const Header = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  &:hover {
-    transform: translateY(-10px);
-    box-shadow: 0px 15px 25px rgba(0, 0, 0, 0.5);
-  }
+  margin-bottom: 1.5rem;
 `;
 
 const Title = styled.h2`
-  text-align: center;
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   color: white;
-  margin-bottom: 1rem;
-  margin-top: 0.2rem;
+  margin: 0;
 `;
 
-const Balance = styled.p`
-  font-size: 1.5rem;
-  text-align: center;
+const IconContainer = styled(motion.div)`
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  padding: 10px;
+  cursor: pointer;
+`;
+
+const Balance = styled(motion.p)`
+  font-size: 2.5rem;
   color: #fff;
   font-weight: bold;
-  margin-top: 0.5rem;
+  margin: 1rem 0;
+  text-align: center;
 `;
 
-const IconContainer = styled.div`
-  background: rgba(0, 0, 0, 0.5); /* Fond noir transparent pour l'icône */
-  border-radius: 50%;
-  padding: 2px;
-  width: 36px;
-  margin: 0;
-  justify-content: center;
+const BalanceChange = styled(motion.span)`
+  font-size: 1rem;
+  color: ${props => props.positive ? '#4caf50' : '#f44336'};
+  display: block;
+  text-align: center;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+`;
+
+const Button = styled(motion.button)`
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+`;
+
+const TransactionHistory = styled(motion.div)`
+  margin-top: 1.5rem;
+`;
+
+const Transaction = styled(motion.div)`
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  border-radius: 10px;
+  margin-bottom: 0.5rem;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  margin-left: 1rem;
 `;
 
-function Wallet(props) {
+const TransactionAmount = styled.span`
+  color: ${props => props.type === 'receive' ? '#4caf50' : '#f44336'};
+  font-weight: bold;
+`;
+
+function Wallet({ owner, balance }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [showTransactions, setShowTransactions] = useState(false);
+
+  const toggleExpand = () => {
+    setIsExpanded(!isExpanded);
+    setShowTransactions(false);
+  };
+
+  const containerVariants = {
+    collapsed: { height: 'auto' },
+    expanded: { height: 'auto', transition: { duration: 0.3 } }
+  };
+
+  const iconVariants = {
+    collapsed: { rotate: 0 },
+    expanded: { rotate: 180 }
+  };
+
+  const balanceChangeVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+  };
+
+  const buttonVariants = {
+    hover: { scale: 1.05 },
+    tap: { scale: 0.95 }
+  };
+
+  const transactionVariants = {
+    hidden: { opacity: 0, height: 0 },
+    visible: { opacity: 1, height: 'auto', transition: { duration: 0.3 } }
+  };
+
   return (
-    <WalletContainer>
-      {/* Icône Bitcoin */}
-      <IconContainer>
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg"
-          alt="Bitcoin logo"
-          width="30"
-          style={{ margin: "4px 0px 0px 3px" }}
-        />
-      </IconContainer>
-      <Title>{props.owner}&apos;s Wallet</Title>
-      <Balance>Balance: {props.balance} BTC</Balance>
+    <WalletContainer
+      initial="collapsed"
+      animate={isExpanded ? "expanded" : "collapsed"}
+      variants={containerVariants}
+    >
+      <Header>
+        <Title>{owner}'s Wallet</Title>
+        <IconContainer
+          onClick={toggleExpand}
+          variants={iconVariants}
+          animate={isExpanded ? "expanded" : "collapsed"}
+        >
+          <FaBitcoin size={24} color="white" />
+        </IconContainer>
+      </Header>
+      <Balance
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        {balance} BTC
+      </Balance>
+      <AnimatePresence>
+        {isExpanded && (
+          <BalanceChange
+            positive={true}
+            variants={balanceChangeVariants}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+          >
+            +2.5% (24h)
+          </BalanceChange>
+        )}
+      </AnimatePresence>
+      {isExpanded && (
+        <ButtonContainer>
+          <Button
+            variants={buttonVariants}
+            whileHover="hover"
+            whileTap="tap"
+          >
+            Send
+          </Button>
+          <Button
+            variants={buttonVariants}
+            whileHover="hover"
+            whileTap="tap"
+          >
+            Receive
+          </Button>
+          <Button
+            variants={buttonVariants}
+            whileHover="hover"
+            whileTap="tap"
+            onClick={() => setShowTransactions(!showTransactions)}
+          >
+            {showTransactions ? <FaChevronUp /> : <FaChevronDown />}
+          </Button>
+        </ButtonContainer>
+      )}
+      <AnimatePresence>
+        {showTransactions && (
+          <TransactionHistory
+            variants={transactionVariants}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+          >
+            <Transaction>
+              <span>Received from Alice</span>
+              <TransactionAmount type="receive">+0.05 BTC</TransactionAmount>
+            </Transaction>
+            <Transaction>
+              <span>Sent to Bob</span>
+              <TransactionAmount type="send">-0.02 BTC</TransactionAmount>
+            </Transaction>
+          </TransactionHistory>
+        )}
+      </AnimatePresence>
     </WalletContainer>
   );
 }

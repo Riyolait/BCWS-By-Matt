@@ -15,7 +15,6 @@ $animationDuration: 5.2s;
 $cubeSize: 90px;
 $outerCubeColor: rgb(45, 50, 53);
 $innerCubeSize: $cubeSize;
-
 @keyframes hoverY {
   0% {
     transform: translatey(0px);
@@ -42,12 +41,12 @@ $innerCubeSize: $cubeSize;
     transform: scale3d(0.37, 0.37, 0.37);
   }
 }
-
 .container {
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative; /* Assurez-vous que le conteneur a une position relative */
+  z-index: 1000;
 }
 
 .scene {
@@ -62,8 +61,12 @@ $innerCubeSize: $cubeSize;
   $hoverDuration: 2s;
   .webpack-cube {
     transform-style: preserve-3d;
-    animation: hoverY $hoverDuration infinite alternate;
+    animation: none;
     animation-timing-function: ease-in-out;
+  }
+
+  .webpack-cube.selected {
+    animation: hoverY $hoverDuration infinite alternate;
   }
 
   .outer-cube {
@@ -128,11 +131,15 @@ $innerCubeSize: $cubeSize;
       width: $innerCubeSize;
       height: $innerCubeSize;
       background-color: rgba(232, 124, 185, 0.5);
-      animation: scaleBigShadow 2s infinite alternate;
+      animation: none;
       animation-timing-function: ease-in-out;
       box-shadow: 0px 0px 45px 35px rgba(232, 124, 185, 0.5);
       transform-origin: center center;
       transform: scale3d(0.8, 0.8, 0.8);
+    }
+
+    .shadow-outer.selected {
+      animation: scaleBigShadow 2s infinite alternate;
     }
   }
 }

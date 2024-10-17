@@ -4,72 +4,84 @@ import { ShaderGradientCanvas, ShaderGradient } from "shadergradient";
 import * as reactSpring from "@react-spring/three";
 import * as drei from "@react-three/drei";
 import * as fiber from "@react-three/fiber";
+import { useState } from "react";
 const GlossaryPageContainer = styled.div`
   padding: 2rem;
-  color: #333;
+  color: #fff;
   min-height: 100vh;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
 `;
 
 const Title = styled.h1`
   text-align: center;
   font-size: 3rem;
-  margin-bottom: 3rem;
-  background: linear-gradient(to bottom, #fff 50%, #ccc 60%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: fadeInDown 1.5s ease;
+  margin-bottom: 2rem;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+`;
+
+const SearchInput = styled.input`
+  width: 100%;
+  max-width: 400px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 25px;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  margin-bottom: 2rem;
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+  }
 `;
 
 const GlossaryGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 2rem;
-  justify-items: center;
   width: 100%;
+  max-width: 1200px;
 `;
 
 const GlossaryItem = styled.div`
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.1);
   padding: 1.5rem;
-  border-radius: 50%;
-  width: 200px;
-  height: 200px;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   text-align: center;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  position: relative;
-  overflow: hidden;
+  backdrop-filter: blur(5px);
 
   &:hover {
-    transform: rotate(360deg) scale(1.1);
-    box-shadow: 0 0 30px 5px #a7ff5e; /* Ombre verte fluo */
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   }
 `;
 
 const GlossaryImage = styled.img`
   width: 60px;
   height: 60px;
-  margin-bottom: 0;
+  margin-bottom: 1rem;
 `;
 
 const GlossaryTerm = styled.h2`
-  font-size: 1.2rem;
-  color: #2980b9;
-  margin-bottom: 0;
+  font-size: 1.4rem;
+  color: #fff;
+  margin-bottom: 0.5rem;
 `;
 
 const GlossaryDefinition = styled.p`
-  font-size: 0.9rem;
-  color: #7f8c8d;
-  line-height: 1.2;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.4;
 `;
+
 const Background = styled.div`
   position: fixed;
   top: 0;
@@ -80,6 +92,7 @@ const Background = styled.div`
 `;
 
 const GlossaryPage = () => {
+  const [searchTerm, setSearchTerm] = useState("");
   const terms = [
     {
       term: "Blockchain",
@@ -131,6 +144,11 @@ const GlossaryPage = () => {
     },
   ];
 
+  const filteredTerms = terms.filter(term =>
+    term.term.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    term.definition.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <GlossaryPageContainer>
       <Background>
@@ -148,8 +166,14 @@ const GlossaryPage = () => {
         </ShaderGradientCanvas>
       </Background>
       <Title>Cryptocurrency & Blockchain Glossary</Title>
+      <SearchInput
+        type="text"
+        placeholder="Search terms..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
       <GlossaryGrid>
-        {terms.map((term, index) => (
+        {filteredTerms.map((term, index) => (
           <GlossaryItem key={index}>
             <GlossaryImage src={term.image} alt={term.term} />
             <GlossaryTerm>{term.term}</GlossaryTerm>
