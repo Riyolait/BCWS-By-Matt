@@ -1,4 +1,6 @@
-/* Header.css */
+/* src/components/Header/Header.css */
+
+/* Color Classes */
 .color1 {
   color: #273255;
 }
@@ -14,6 +16,8 @@
 .color5 {
   color: #ffabda;
 }
+
+/* CSS Variables */
 :root {
   --color1: #273255;
   --color2: #534371;
@@ -21,31 +25,62 @@
   --color4: #e87cb9;
   --color5: #ffabda;
 }
+
+/* Global Styles */
 body {
   margin: 0;
   font-family: "Roboto", sans-serif;
 }
 
+/* Header Styles */
 header {
-  background: var(--color1);
+  /* background: var(--color1); */ /* Commented out */
   color: #fff;
   padding: 0 1rem;
 }
 
-.container {
+/* Container Styles */
+.container-header {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center; /* Centers the nav */
   align-items: center;
+  position: relative;     /* Enables absolute positioning of h1 */
 }
 
+/* H1 Styles */
 h1 {
+  /* Positions h1 independently */
+  left: 1rem;         /* Aligns h1 to the very left with some padding */
+  font-size: 1.5rem;
+  margin: 0;          /* Removes default margins */
+}
+
+.header-title {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 1rem;
+}
+
+.header-title {
+  text-decoration: none;
+  color: #fff;
+  left: 1rem;         /* Aligns h1 to the very left with some padding */
+  font-size: 1.5rem;
+  margin: 0; 
+  font-weight: bold;
+}
+
+/* Navigation Styles */
+nav {
+  display: flex;           /* Ensures nav uses flexbox */
+  align-items: center;     /* Centers nav items vertically */
   font-size: 1.5rem;
 }
 
-nav {
-  position: relative;
-}
-
+/* Menu Icon Styles */
 .menu-icon {
   display: none;
   flex-direction: column;
@@ -72,10 +107,11 @@ nav {
   transform: rotate(45deg) translate(-5px, -6px);
 }
 
+/* Navigation Links Styles */
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 1rem;
+  gap: 2rem;
 }
 
 .nav-links li {
@@ -86,19 +122,21 @@ nav {
   text-decoration: none;
   color: #fff;
   font-weight: bold;
-  transition: color 0.3s; /* Add transform transition */
+  transition: color 0.3s;
 }
 
 .nav-links a:hover {
   color: #00bcd4;
 }
 
+/* Responsive Styles */
 @media (max-width: 768px) {
   .container {
-    justify-content: space-between;
+    justify-content: space-between; /* Spreads out h1 and menu-icon */
   }
+  
   .menu-icon {
-    display: flex;
+    display: flex; /* Shows the menu icon on mobile */
   }
 
   .nav-links {
@@ -115,7 +153,7 @@ nav {
   }
 
   .nav-links.open {
-    max-height: 300px; /* Adjust this value based on the number of items */
+    max-height: 300px; /* Adjust based on the number of items */
   }
 
   .nav-links li {

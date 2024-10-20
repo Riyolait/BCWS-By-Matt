@@ -6,6 +6,9 @@ import * as reactSpring from "@react-spring/three";
 import * as drei from "@react-three/drei";
 import * as fiber from "@react-three/fiber";
 
+import TwitterCarousel from "../components/TwitterCarousel/TwitterCarousel";
+
+
 // Styles pour rendre la page plus attrayante
 const Container = styled.div`
   text-align: center;
@@ -112,18 +115,31 @@ const Feature = styled.div`
 
 const NewsSection = styled.div`
   margin-top: 3rem;
-`;
+  width: 100%;
+  padding: 2rem 0;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  `;
 
 const NewsTitle = styled.h2`
   font-size: 3rem;
   color: #fff;
   margin-bottom: 1.5rem;
-  animation: fadeIn 2s ease-in-out;
-  // collé à la gauche
-  text-align: left;
-  background: linear-gradient(to bottom, #fff 50%, #ccc 60%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  text-align: center;
+  position: relative;
+  display: inline-block;
+
+  &:after {
+    content: '';
+    position: absolute;
+    width: 60%;
+    height: 3px;
+    background: #5606FF;
+    bottom: -10px;
+    left: 20%;
+    border-radius: 5px;
+  }
 `;
 
 const TwitterEmbedContainer = styled.div`
@@ -164,7 +180,7 @@ function HomePage() {
         >
           <ShaderGradient
             control="query"
-            urlString="https://www.shadergradient.co/customize?animate=on&axesHelper=on&bgColor1=%233c002c&bgColor2=%23314551&brightness=2&cAzimuthAngle=180&cDistance=3.9&cPolarAngle=115&cameraZoom=1&color1=%235606FF&color2=%23FE8989&color3=%23000000&destination=onCanvas&embedMode=off&envPreset=city&format=gif&fov=45&frameRate=10&grain=on&lightType=3d&pixelDensity=1.5&positionX=-0.5&positionY=0.1&positionZ=0&range=enabled&rangeEnd=40&rangeStart=0&reflection=0.1&rotationX=0&rotationY=0&rotationZ=235&shader=defaults&type=waterPlane&uAmplitude=0&uDensity=1.8&uFrequency=5.5&uSpeed=0.1&uStrength=1.4&uTime=0.2&wireframe=false"
+            urlString="https://www.shadergradient.co/customize?animate=on&axesHelper=off&bgColor1=%233c002c&bgColor2=%23314551&brightness=0.5&cAzimuthAngle=0&cDistance=3.9&cPolarAngle=115&cameraZoom=30&color1=%235606FF&color2=%23FE8989&color3=%23000000&destination=onCanvas&embedMode=off&envPreset=city&format=gif&fov=45&frameRate=10&grain=on&lightType=3d&pixelDensity=1.5&positionX=-0.5&positionY=0.1&positionZ=0&range=enabled&rangeEnd=40&rangeStart=0&reflection=0.1&rotationX=0&rotationY=0&rotationZ=00&shader=defaults&type=waterPlane&uAmplitude=0&uDensity=1.8&uFrequency=5.5&uSpeed=0.1&uStrength=1.4&uTime=0.2&wireframe=false"
           />
         </ShaderGradientCanvas>
       </Background>
@@ -217,56 +233,13 @@ function HomePage() {
         </Feature>
       </FeatureSection>
       <hr></hr>
+      <hr />
+
       <NewsSection>
         <NewsTitle>Latest Crypto & Blockchain News</NewsTitle>
-        <TwitterEmbedContainer>
-          <TwitterEmbed>
-            <TwitterTimelineEmbed
-              sourceType="profile"
-              screenName="cryptofeednews"
-              options={{
-                tweetLimit: "10",
-                width: "100%",
-                height: "800",
-              }}
-              theme="dark"
-              noHeader="true"
-              noBorders="true"
-              noFooter="true"
-            />
-          </TwitterEmbed>
-          <TwitterEmbed>
-            <TwitterTimelineEmbed
-              sourceType="profile"
-              screenName="CryptoBoomNews"
-              options={{
-                tweetLimit: "10",
-                width: "100%",
-                height: "800",
-              }}
-              theme="dark"
-              noHeader="true"
-              noBorders="true"
-              noFooter="true"
-            />
-          </TwitterEmbed>
-          <TwitterEmbed>
-            <TwitterTimelineEmbed
-              sourceType="profile"
-              screenName="cryptodotnew"
-              options={{
-                tweetLimit: "10",
-                width: "100%",
-                height: "800",
-              }}
-              theme="dark"
-              noHeader="true"
-              noBorders="true"
-              noFooter="true"
-            />
-          </TwitterEmbed>
-        </TwitterEmbedContainer>
+        <TwitterCarousel />
       </NewsSection>
+
     </Container>
   );
 }

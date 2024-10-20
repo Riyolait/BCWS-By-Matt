@@ -11,8 +11,14 @@ function Header() {
 
   return (
     <header>
-      <div className="container">
-        <h1>BCWS By Matt</h1>
+      <div className="container-header">
+
+          <a className="header-title" href="/home">
+          <img src="/src/assets/logo.png" alt="logo" className="logo" width="50" height="50"/>
+          BCWS By Matt
+          </a>
+          
+
         <nav>
           <div className="menu-icon" onClick={toggleMenu}>
             <div className={isOpen ? "bar open" : "bar"}></div>
@@ -32,7 +38,7 @@ function Header() {
           </ul>
         </nav>
       </div>
-      <hr />
+      
     </header>
   );
 }

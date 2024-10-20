@@ -161,8 +161,7 @@ const GlossaryPage = () => {
         >
           <ShaderGradient
             control="query"
-            urlString="https://www.shadergradient.co/customize?animate=on&axesHelper=on&bgColor1=%233c002c&bgColor2=%23314551&brightness=2&cAzimuthAngle=180&cDistance=3.9&cPolarAngle=115&cameraZoom=1&color1=%235606FF&color2=%23FE8989&color3=%23000000&destination=onCanvas&embedMode=off&envPreset=city&format=gif&fov=45&frameRate=10&grain=on&lightType=3d&pixelDensity=1.5&positionX=-0.5&positionY=0.1&positionZ=0&range=enabled&rangeEnd=40&rangeStart=0&reflection=0.1&rotationX=0&rotationY=0&rotationZ=235&shader=defaults&type=waterPlane&uAmplitude=0&uDensity=1.8&uFrequency=5.5&uSpeed=0.1&uStrength=1.4&uTime=0.2&wireframe=false"
-          />
+            urlString="https://www.shadergradient.co/customize?animate=on&axesHelper=off&bgColor1=%233c002c&bgColor2=%23314551&brightness=0.5&cAzimuthAngle=0&cDistance=3.9&cPolarAngle=115&cameraZoom=30&color1=%235606FF&color2=%23FE8989&color3=%23000000&destination=onCanvas&embedMode=off&envPreset=city&format=gif&fov=45&frameRate=10&grain=on&lightType=3d&pixelDensity=1.5&positionX=-0.5&positionY=0.1&positionZ=0&range=enabled&rangeEnd=40&rangeStart=0&reflection=0.1&rotationX=0&rotationY=0&rotationZ=00&shader=defaults&type=waterPlane&uAmplitude=0&uDensity=1.8&uFrequency=5.5&uSpeed=0.1&uStrength=1.4&uTime=0.2&wireframe=false"          />
         </ShaderGradientCanvas>
       </Background>
       <Title>Cryptocurrency & Blockchain Glossary</Title>
